@@ -38,8 +38,10 @@
     };
 
     const constraints = {
-        video: true,
-        facingMode: "user"
+         video: {
+         width: 640,
+         height: 480,
+         facingMode: "user"
     };
 
     // Attach the video stream to the video element and autoplay.
