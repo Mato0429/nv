@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head>
+  <html lang="ja">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>night vision</title>
+  <script type="text/javascript" src="https://docs.opencv.org/4.x/opencv.js"></script>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <video id="video"></video>
+
+  <script>
+    const fps = 20;
+    const video = document.querySelector("#video");
+    const canvas = document.querySelector("#canvas");
+    const context = canvas.getContext('2d');;
+    const constraints = {
+      video: true,
+    };
+  navigator.mediaDevices.getUserMedia(constraints)
+    .then((stream) => {
+      video.srcObject = stream;
+    });
+  
+  function loop(){
+    cap = new cv.VideoCapture(video);
+    //グレーに変換
+    let src = cv.imread('canvas');
+    let dst = new cv.Mat();
+    cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY, 0);
+    cv.imshow("canvas",dst)
+    src.delete()
+    dst.delete()
+  }
+
+  setInterval(loop,1000/fps)
+  
+  </script>
+
+</body>
+</html>
